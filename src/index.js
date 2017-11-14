@@ -17,7 +17,7 @@ export default function ({ template, types: t }) {
           t.removeComments(importArguments[0]);
         }
         const newImport = buildImport({
-          SOURCE: (isString)
+          SOURCE: './app/scripts/' + (isString)
             ? importArguments
             : t.templateLiteral([
               t.templateElement({ raw: '', cooked: '' }),
