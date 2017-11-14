@@ -15,16 +15,16 @@ export default function ({ template, types: t }) {
                         || t.isTemplateLiteral(importArguments[0]);
         if (isString) {
           t.removeComments(importArguments[0]);
+          const newImport = buildImport({
+            SOURCE: (isString)
+              ? importArguments
+              : t.templateLiteral([
+                t.templateElement({ raw: '', cooked: '' }),
+                t.templateElement({ raw: '', cooked: '' }, true),
+              ], importArguments),
+          });
+          path.parentPath.replaceWith(newImport);
         }
-        const newImport = buildImport({
-          SOURCE: './app/scripts/' + (isString)
-            ? importArguments
-            : t.templateLiteral([
-              t.templateElement({ raw: '', cooked: '' }),
-              t.templateElement({ raw: '', cooked: '' }, true),
-            ], importArguments),
-        });
-        path.parentPath.replaceWith(newImport);
       },
     },
   };
